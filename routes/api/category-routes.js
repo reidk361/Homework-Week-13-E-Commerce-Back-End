@@ -2,7 +2,6 @@ const router = require('express').Router();
 const { Category, Product } = require('../../models');
 
 // The `/api/categories` endpoint
-router.use('/categories');
 
 router.get('/', (req, res) => {
   // find all categories
@@ -25,7 +24,7 @@ router.get('/:id', (req, res) => {
     });
 
     if (!categoryData) {
-      res.status(404).json({ message: 'No category found with this id!' });
+      res.status(404).json({ message: 'There is no category with this id!' });
       return;
     }
     res.status(200).json(categoryData);
@@ -55,7 +54,7 @@ router.put('/:id', (req, res) => {
     });
 
     if (!categoryData) {
-      res.status(404).json({ message: 'No category found with this id!' });
+      res.status(404).json({ message: 'There is no category with this id!' });
       return;
     }
     res.status(200).json(categoryData);
@@ -67,14 +66,14 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   // delete a category by its `id` value
   try {
-    const categoryData = await Category.findByPk({
+    const categoryData = await Category.destroy({
       where: {
         id: req.params.id
       }
     });
 
     if (!categoryData) {
-      res.status(404).json({ message: 'No category found with this id!' });
+      res.status(404).json({ message: 'There is no category with this id!' });
       return;
     }
     res.status(200).json(categoryData);
